@@ -59,15 +59,16 @@ class LinesTranslate:
         return self._output
 
 
-basepath = 'source/'
-with os.scandir(basepath) as entries:
-    for entry in entries:
-        if entry.is_file():
-            print(entry.name)
-            fs = open('destination/' + entry.name, 'w', encoding='utf-8')
-            try:
-                with open(basepath + entry.name, 'r', encoding='utf-8') as f:
-                    lines_original = f.readlines()
-                    fs.writelines([line for line in LinesTranslate(lines_original).execute().output])
-            finally:
-                fs.close()
+if __name__ == '__main__':
+    base_path = 'source/'
+    with os.scandir(base_path) as entries:
+        for entry in entries:
+            if entry.is_file():
+                print(entry.name)
+                fs = open('destination/' + entry.name, 'w', encoding='utf-8')
+                try:
+                    with open(base_path + entry.name, 'r', encoding='utf-8') as f:
+                        lines_original = f.readlines()
+                        fs.writelines([line for line in LinesTranslate(lines_original).execute().output])
+                finally:
+                    fs.close()
